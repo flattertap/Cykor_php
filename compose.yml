@@ -15,7 +15,7 @@ services:
       MYSQL_PASSWORD: examplepass
       MYSQL_DATABASE: exampledb
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d
     networks:
