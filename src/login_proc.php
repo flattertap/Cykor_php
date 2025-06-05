@@ -2,23 +2,24 @@
     session_start();
     require_once 'db.php';
 
-    $id = $_POST['id'] ?? '';
-    $pw = $_POST['pw'] ?? '';
+    $userid = $_POST['userid'] ?? '';
+    $password = $_POST['pw'] ?? '';
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-    $stmt->bind_param("s", $id);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE userid = ?");
+    $stmt->bind_param("s", $userid);
     $stmt->execute();
     $result = $stmt->get_result();
     $user_data = $result->fetch_assoc();
 
-    if ($user_data && password_verify($pw, $user_data['password'])) {
+    if ($user_data && password_verify($password, $user_data['password'])) {
         $_SESSION['is_login'] = true;
+        $_SESSION['userid'] = $user_data['userid'];
         $_SESSION['id'] = $user_data['id'];
         header('Location: index.php');
         exit;
     }
 
-    $_SESSION['msg'] = 'Invalid username or password';
+    $_SESSION['msg'] = 'Invalid userid or password';
     header('Location: login.php');
     exit;
 ?>

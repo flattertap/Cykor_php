@@ -22,7 +22,7 @@
     <form method="post" action="login_proc.php">
         <p>
             ID:
-            <input type="text" name="id" placeholder="Enter ID" required>
+            <input type="text" name="userid" placeholder="Enter ID" required>
             Password:
             <input type="password" name="pw" placeholder="Enter password" required>
         </p>

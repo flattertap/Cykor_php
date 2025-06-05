@@ -2,17 +2,17 @@
     session_start();
     require_once 'db.php';
 
-    $id = $_POST['id'] ?? '';
+    $userid = $_POST['userid'] ?? '';
     $password = $_POST['pw'] ?? '';
 
-    if (!$id || !$password) {
+    if (!$userid || !$password) {
         $_SESSION['msg'] = 'enter all';
         header('Location: register.php');
         exit;
     }
 
-    $check_stmt = $conn->prepare("SELECT id FROM users WHERE id = ?");
-    $check_stmt->bind_param("s", $id);
+    $check_stmt = $conn->prepare("SELECT userid FROM users WHERE userid = ?");
+    $check_stmt->bind_param("s", $userid);
     $check_stmt->execute();
     $check_result = $check_stmt->get_result();
 
@@ -24,8 +24,8 @@ if ($check_result->num_rows > 0) {
 
     $hashed = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("INSERT INTO users (id, password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $id, $hashed);
+    $stmt = $conn->prepare("INSERT INTO users (userid, password) VALUES (?, ?)");
+    $stmt->bind_param("ss", $userid, $hashed);
 
     if ($stmt->execute()) {
         $_SESSION['msg'] = 'Success';

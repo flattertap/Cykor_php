@@ -21,7 +21,7 @@
     <br><br>
     <?php
         if(isset($_SESSION['id'])){
-            echo 'Hello'.$_SESSION['id'];
+            echo "Hello {$_SESSION['userid']}!";
         }
     ?>
 </body>
